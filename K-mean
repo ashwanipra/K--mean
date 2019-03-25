@@ -1,0 +1,40 @@
+#impoting important libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#importing dataset
+from sklearn.datasets.samples_generator import make_blobs
+x,y = make_blobs(n_samples=300,cluster_std=.6,random_state=0,centers=5)
+
+#making scatter plot of dataset
+plt.scatter(x[:,0],x[:,1])
+plt.show()
+
+#finding no. of k
+wcss=[]
+
+for i in range(1,11):
+    km=KMeans(n_clusters=i,random_state=0)
+    km.fit(x)
+    wcss.append(km.inertia_)
+    
+    
+plt.plot(range(1,11),wcss)
+plt.show() 
+
+#applying model
+from sklearn.cluster import KMeans
+km=KMeans(n_clusters=5,random_state=0)
+km.fit(x)
+
+out=km.predict(x)
+
+plt.scatter(x[out==0,0],x[out==0,1])
+plt.scatter(x[out==1,0],x[out==1,1])
+plt.scatter(x[out==2,0],x[out==2,1])
+plt.scatter(x[out==3,0],x[out==3,1])
+plt.scatter(x[out==4,0],x[out==4,1])
+plt.show()
+
+   
